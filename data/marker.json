@@ -1,0 +1,31 @@
+{
+  "westbeach": {
+    "name": "West Beach",
+    "lat": "34.4108822",
+    "lng": "-119.6951361"
+  },
+
+  "leadbetter": {
+    "name": "Leadbetter Beach",
+    "lat": "34.4070586",
+    "lng": "-119.7015119"
+  },
+
+  "arlington": {
+    "name": "Arlington Theatre",
+    "lat": "34.4245638",
+    "lng": "-119.7087934"
+  },
+
+  "zaytoon": {
+    "name": "Zaytoon Restaurant",
+    "lat": "34.4230844",
+    "lng": "-119.7068157"
+  },
+
+  "holdren": {
+    "name": "Holdren's Steaks & Seafood",
+    "lat": "34.4230844",
+    "lng": "-119.7068157"
+  }
+}

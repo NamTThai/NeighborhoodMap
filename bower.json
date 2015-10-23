@@ -1,0 +1,25 @@
+{
+  "name": "neighborhood-map",
+  "title": "Neighborhood Map",
+  "authors": [
+    "Nam Thai <nthai@ciosolutions.com>"
+  ],
+  "description": "Neighborhood Map",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "paper-drawer-panel": "PolymerElements/paper-drawer-panel#~1.0.3",
+    "paper-icon-button": "PolymerElements/paper-icon-button#~1.0.3",
+    "paper-item": "PolymerElements/paper-item#~1.0.2",
+    "paper-menu": "PolymerElements/paper-menu#~1.1.0",
+    "paper-toolbar": "PolymerElements/paper-toolbar#~1.0.4",
+    "polymer": "~1.0.8"
+  }
+}

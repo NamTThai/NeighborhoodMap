@@ -1,0 +1,193 @@
+
+<dom-module id="checklist-filter">
+  <style>
+    :host {
+      display: block;
+    }
+
+    paper-input {
+      flex: 1;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    paper-button {
+      padding: 0;
+      min-width: 0;
+      margin: auto;
+    }
+
+    #addData:not([visible]) {
+      display: none;
+    }
+
+    .result-item {
+      padding: 12px;
+      border-bottom: 1px solid lightgrey;
+    }
+
+    .wrapper {
+      max-height: 500px;
+      overflow: auto;
+    }
+
+    .dropdown-position {
+      position: fixed;
+    }
+
+    .dropdown-content {
+      display: block;
+      position: relative;
+      background-color: #fff;
+      box-shadow: 0px 2px 6px #ccc;
+      margin: 0.25em 0;
+      padding: 0.25em;
+      border-radius: 3px;
+    }
+
+    .dropdown-item {
+      display: block;
+      position: relative;
+      margin: 0;
+      padding: 1em;
+      text-decoration: none;
+    }
+
+    .dropdown-item:not(:last-of-type) {
+      border-bottom: 1px solid #eee;
+    }
+
+    .dropdown-item:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+  <template>
+    <div class="row">
+      <paper-button id="addData" on-click="eAddData" visible$={{addData}}><iron-icon icon="add"></iron-icon></paper-button>
+      <paper-input id="input" class="dropdown-trigger" on-keyup="checkKey" label="[[label]]" value="{{value}}" type="[[inputType]]"></paper-input>
+      <paper-button on-click="eToggleResult"><iron-icon icon="arrow-drop-down"></iron-icon></paper-button>
+    </div>
+    <iron-dropdown id="dropdownResult" class="dropdown-position" vertical-offset="50">
+      <ul class="dropdown-content">
+        <li class="dropdown-item result-item">
+          <paper-checkbox id="selectAll" on-change="eSelectAllChange"></paper-checkbox>
+          <span>Select All</span>
+        </li>
+        <template is="dom-repeat" items="{{filteredItems}}">
+          <li class="dropdown-item result-item">
+            <paper-checkbox checked="{{item.checked}}"></paper-checkbox>
+            <span>{{item.value}}</span>
+          </li>
+        </template>
+      </ul>
+    </iron-dropdown>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'checklist-filter',
+
+    properties: {
+      addData: {
+        type: Boolean,
+        value: false
+      },
+
+      data: {
+        type: Array,
+        value: []
+      },
+
+      inputType: {
+        type: String,
+        value: "text"
+      },
+
+      label: String,
+
+      filterFn: {
+        type: Function,
+        value: function() {
+          return function(data, input) {
+            var r = RegExp(input, 'i');
+
+            if (input === '') {
+              return data;
+            }
+
+            return data.filter(function(v) {
+              return (r.test(v.value) ? v : null);
+            });
+          };
+        }
+      },
+
+      filteredItems: {
+        type: Array,
+        computed: 'getFiltered(data.*, value, filterFn)'
+      },
+
+      value: String
+    },
+
+    eAddData: function() {
+      var value = this.$.input.value;
+      for (var i = 0; i < this.data.length; i++) {
+        if (value == this.data[i].id) {
+          return;
+        }
+      }
+
+      var newData = {
+        id: value,
+        value: value,
+        checked: true
+      };
+      this.push('data', newData);
+      this.push('filteredItems', newData);
+    },
+
+    eSelectAllChange: function() {
+      var checked = this.querySelector('#selectAll').checked;
+      for (var i = 0; i < this.data.length; i++) {
+        this.set('data.' + i + '.checked', checked);
+        this.set('filteredItems.' + i + '.checked', checked);
+      }
+    },
+
+    eToggleResult: function() {
+      this.$.dropdownResult.toggle();
+    },
+
+    checkKey: function(e) {
+      if (e.which === 27) {
+        this.$.dropdownResult.close();
+      } else {
+        if (!this.$.dropdownResult.opened) {
+          this.$.dropdownResult.open();
+        }
+      }
+    },
+
+    getFiltered: function(data, value, filterFn) {
+      return filterFn.call(this, data.base, value);
+    },
+
+    getSelectedItems: function() {
+      var items = [];
+      for (var i = 0; i < this.data.length; i++) {
+        if (this.data[i].checked) {
+          items.push(this.data[i].id);
+        }
+      }
+      return items;
+    },
+
+    setData: function(data) {
+      this.data = data;
+    }
+  });
+</script>
