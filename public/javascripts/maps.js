@@ -9,10 +9,12 @@
       zoom: 14
     });
 
+    // Create an OverlapView over the map object to retrieve marker location
     window.overlayMap = new google.maps.OverlayView();
     window.overlayMap.draw = function() {};
     window.overlayMap.setMap(window.map);
 
+    // Retrieve the absolute position of the map div in relation to top left corner
     var offsetValues = {
       top: 0,
       left: 0
@@ -40,6 +42,7 @@
     });
   });
 
+  // Add a marker to the map. Add listener to that marker, responding to click event
   function addLocationMarker(location) {
     var lat = parseFloat(location.lat);
     var lng = parseFloat(location.lng);
@@ -61,6 +64,7 @@
       eventListener.eAnimateMarker({detail: {item: location.id}});
     });
 
+    // Store all the markers in an array
     if (!window.markers) {
       window.markers = {};
     }
@@ -68,6 +72,7 @@
     window.markers[location.id] = marker;
   }
 
+  // Set available data to the search filter list on the left drawer panel
   function setLocationList(locations) {
     document.querySelector('search-filter').setData(locations);
   }

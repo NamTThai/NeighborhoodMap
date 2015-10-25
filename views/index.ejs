@@ -48,14 +48,11 @@
         <div id="map"></div>
       </div>
     </paper-drawer-panel>
-    <paper-dialog id="infoDialog">
-      <div class="row">
-        <h1 id="infoHeader"><a id="infoUrl" href="[[info.url]]" target="_blank">[[info.name]]</a></h1>
-        <span class="flex"></span>
-        <span>[[info.display_phone]]</span>
-      </div>
+    <paper-dialog id="infoDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+      <h1 id="infoHeader">[[info.name]]</h1>
+      <div>[[info.display_phone]]</div>
       <img src="[[info.rating_img_url]]" alt="Review stars">
-      <div id="reviewSnippet">[[info.snippet_text]]</div>
+      <div id="reviewSnippet"><a id="infoUrl" href="[[info.url]]" target="_blank">[[info.snippet_text]]</a></div>
     </paper-dialog>
   </template>
 </body>

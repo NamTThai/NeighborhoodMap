@@ -79,7 +79,7 @@
       value: String
     },
 
-    eItemClick: function(event) {
+    eItemClick: function(event) {      
       var item = this.$.filteredItems.itemForElement(event.target).id;
       this.fire("animate-marker", {bubbles: true, item: item});
     },
