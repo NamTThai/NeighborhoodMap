@@ -1,31 +1,41 @@
 {
   "westbeach": {
+    "id": "westbeach",
     "name": "West Beach",
-    "lat": "34.4108822",
-    "lng": "-119.6951361"
+    "lat": "34.410015",
+    "lng": "-119.690215",
+    "yelpId": "west-beach-santa-barbara"
   },
 
   "leadbetter": {
+    "id": "leadbetter",
     "name": "Leadbetter Beach",
-    "lat": "34.4070586",
-    "lng": "-119.7015119"
+    "lat": "34.402472",
+    "lng": "-119.699334",
+    "yelpId": "leadbetter-beach-santa-barbara-2"
   },
 
   "arlington": {
+    "id": "arlington",
     "name": "Arlington Theatre",
-    "lat": "34.4245638",
-    "lng": "-119.7087934"
+    "lat": "34.424719",
+    "lng": "-119.706551",
+    "yelpId": "arlington-theatre-santa-barbara"
   },
 
   "zaytoon": {
+    "id": "zaytoon",
     "name": "Zaytoon Restaurant",
-    "lat": "34.4230844",
-    "lng": "-119.7068157"
+    "lat": "34.423071",
+    "lng": "-119.698072",
+    "yelpId": "zaytoon-santa-barbara"
   },
 
   "holdren": {
+    "id": "holdren",
     "name": "Holdren's Steaks & Seafood",
-    "lat": "34.4230844",
-    "lng": "-119.7068157"
+    "lat": "34.417225",
+    "lng": "-119.695828",
+    "yelpId": "holdrens-steaks-and-seafood-santa-barbara-2"
   }
 }

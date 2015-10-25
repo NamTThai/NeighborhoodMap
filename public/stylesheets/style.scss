@@ -5,3 +5,19 @@ body {
 #map {
   height: 100%;
 }
+
+#infoDialog {
+  position: fixed;
+  width: 400px;
+  overflow: auto;
+}
+
+#infoUrl {
+  color: inherit;
+  text-decoration: none;
+}
+
+#infoUrl:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

@@ -16,4 +16,19 @@ router.get('/markers', function(req, res) {
   res.json(markers);
 });
 
+router.get('/yelp', function(req, res) {
+  var yelp = require('yelp').createClient(require('../data/yelp-oauth.json'));
+  console.log(req.query.name);
+  require('./log').debug(req.query.name);
+
+  yelp.business(req.query.name, function(error, data) {
+    if (error) {
+      res.status(404).send(error);
+      return;
+    }
+
+    res.json(data);
+  });
+});
+
 module.exports = router;

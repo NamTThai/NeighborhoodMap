@@ -1,18 +1,12 @@
-### How to integrate this application into IIS
+### Get a developer API from Yelp:
 
-1. Go to Server Manager and add IIS as Roles
-  a. The following features:
-    * `.NET Framework 3.5 Features`
-    * `.NET Framework 4.5 Featuers > (ASP.NET, WCF Services > (HTTP Activation + TCP Activation))`
-  b The following role services:
-    `Security > Basic Authentication, Windows Authentication`
-2. Install IISNode, Chocolatey, Git, Node.js if currently doesn't exist
-3. Using Chocolatey, install Python2, vcredist2010, URLRewrite if currently doesn't exist
-  `choco install python2`
-  `choco install vcredist2010`
-  `choco install urlrewrite`
-4. Clone the project into a folder such as `C:\Program Files\iisnode\app-name`
-5. `npm install`, `bower install`
-6. Edit `web.config file`
-7. Copy `setup.bat` to parent folder and run this file
-8. Copy `favicon.ico` over to `C:\inetpub\wwwroot`, or wherever the `wwwroot` is located
+Navigate to `https://www.yelp.com/developers/manage_api_keys` to get an API key from yelp. Afterwards, create a file named `yelp-oauth.json` in folder `data` with the following information:
+
+```
+{
+  "consumer_key": "YOUR CONSUMER KEY HERE",
+  "consumer_secret": "YOUR CONSUMER SECRET HERE",
+  "token": "YOUR TOKEN HERE",
+  "token_secret": "YOUR TOKEN SECRET HERE"
+}
+```

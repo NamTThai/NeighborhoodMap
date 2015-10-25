@@ -36,16 +36,9 @@
 </head>
 <body class="fullbleed layout vertical">
   <template id="eventListener" is="dom-bind">
-    <paper-drawer-panel class="drawer-panel">
+    <paper-drawer-panel class="drawer-panel" on-animate-marker="eAnimateMarker" on-filter-marker="eFilterMarker">
       <div drawer>
-        <paper-toolbar class="drawer-toolbar">
-          <span class="drawer-toolbar-menu">Menu</span>
-        </paper-toolbar>
-        <paper-menu>
-          <template is="dom-repeat" items="[[locations]]">
-            <paper-item on-click="eDrawerItemClick">[[item.name]]</paper-item>
-          </template>
-        </paper-menu>
+        <search-filter label="Hot Spots in Funtown"></search-filter>
       </div>
       <div main>
         <paper-toolbar id="mainToolbar">
@@ -55,6 +48,15 @@
         <div id="map"></div>
       </div>
     </paper-drawer-panel>
+    <paper-dialog id="infoDialog">
+      <div class="row">
+        <h1 id="infoHeader"><a id="infoUrl" href="[[info.url]]" target="_blank">[[info.name]]</a></h1>
+        <span class="flex"></span>
+        <span>[[info.display_phone]]</span>
+      </div>
+      <img src="[[info.rating_img_url]]" alt="Review stars">
+      <div id="reviewSnippet">[[info.snippet_text]]</div>
+    </paper-dialog>
   </template>
 </body>
 </html>
