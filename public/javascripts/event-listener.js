@@ -26,7 +26,14 @@ document.addEventListener("WebComponentsReady", function() {
     // Get Yelp review of the selected location and display as a dialog
     var locationYelpId = window.allMarkers[locationId].yelpId;
     $.get(window.appPath + "yelp", {name: locationYelpId}, function(data) {
-      eventListener.info = data;
+      // Change infoDialogVm observable data
+      window.infoDialogVm.name(data.name);
+      window.infoDialogVm.displayPhone(data.display_phone);
+      window.infoDialogVm.ratingImgUrl(data.rating_img_url);
+      window.infoDialogVm.url(data.url);
+      window.infoDialogVm.snippetText(data.snippet_text);
+
+      // Change the location of infoDialog
       var infoDialog = document.querySelector("#infoDialog");
       var markerPosition = window.overlayMap.getProjection().fromLatLngToDivPixel(marker.getPosition());
       infoDialog.style.top = (window.overlayMap.offsetValues.top + markerPosition.y) + "px";

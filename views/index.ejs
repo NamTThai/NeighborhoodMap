@@ -5,8 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Jquery -->
+  <!-- Javascripts libraries -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/knockout/dist/knockout.js"></script>
 
   <!-- Fonts -->
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway" type="text/css">
@@ -49,10 +50,10 @@
       </div>
     </paper-drawer-panel>
     <paper-dialog id="infoDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-      <h1 id="infoHeader">[[info.name]]</h1>
-      <div>[[info.display_phone]]</div>
-      <img src="[[info.rating_img_url]]" alt="Review stars">
-      <div id="reviewSnippet"><a id="infoUrl" href="[[info.url]]" target="_blank">[[info.snippet_text]]</a></div>
+      <h1 id="infoHeader" data-bind="text: name"></h1>
+      <div data-bind="text: displayPhone"></div>
+      <img data-bind="attr: {src: ratingImgUrl}" alt="Review stars">
+      <div id="reviewSnippet"><a id="infoUrl" data-bind="attr: {href: url}, text: snippetText" target="_blank"></a></div>
     </paper-dialog>
   </template>
 </body>
