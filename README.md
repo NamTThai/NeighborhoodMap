@@ -1,5 +1,7 @@
 ## Neighborhood Map project
 
+The project is not battery-included. Please get a developer API key from Yelp.
+
 ### How to run the application
 
 The application is run using Express framework for Node.js. Express.js will create a server allowing for browser caching and gzip compression.
@@ -10,7 +12,7 @@ The application is run using Express framework for Node.js. Express.js will crea
 1. Besides Google Maps API, the project also uses Yelp API. Please get a developer API key (instruction in the corresponding section)
 1. Start the application with `gulp build`. The distributed version of the application is located in the `build` directory. The default port is 3000. It can be changed by setting `NODE_ENV` environment variable. The application can be accessed from a web browser at `localhost:3000/neighborhood-map/``
 
-### Get a developer API key from Yelp
+### How to get a developer API key from Yelp
 
 Navigate to `https://www.yelp.com/developers/manage_api_keys` to get an API key from yelp. Afterwards, create a file named `yelp-oauth.json` in folder `data` with the following information:
 
