@@ -24,3 +24,7 @@ Navigate to `https://www.yelp.com/developers/manage_api_keys` to get an API key 
   "token_secret": "YOUR TOKEN SECRET HERE"
 }
 ```
+
+### Usage Tip
+
+* Press ESC to close the information dialog

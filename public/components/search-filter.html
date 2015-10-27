@@ -1,3 +1,5 @@
+<!-- This web component provides a search bar and a result list. It uses users' search
+bar input to filter the available data and display them in the result list -->
 <dom-module id="search-filter">
   <style>
     :host {
@@ -23,75 +25,80 @@
       cursor: pointer;
     }
   </style>
+
   <template>
-    <paper-input id="input" label="[[label]]" value="{{value}}" type="[[inputType]]"></paper-input>
-    <paper-menu>
-      <template id="filteredItems" is="dom-repeat" items="[[filteredItems]]">
-        <paper-item class="result-item" on-click="eItemClick">[[item.name]]</paper-item>
-      </template>
-    </paper-menu>
+    <div id="host">
+      <paper-input id="input" label="[[label]]" type="[[inputType]]" data-bind="valueUpdate: 'keyup', value: textInput"></paper-input>
+      <paper-menu data-bind="foreach: filteredItems">
+        <paper-item class="result-item" data-bind="text: $data.name, click: $parent.eItemClick"></paper-item>
+      </paper-menu>
+    </div>
   </template>
+
 </dom-module>
 <script>
   Polymer({
     is: 'search-filter',
 
     properties: {
-      addData: {
-        type: Boolean,
-        value: false
-      },
-
-      data: {
-        type: Array,
-        value: []
-      },
-
+      // Allowing webcomponent users to declase input type of search bar, defaulting to text
       inputType: {
         type: String,
         value: "text"
       },
 
-      label: String,
+      // Allowing webcomponent users to declar label of the search bar
+      label: String
+    },
 
-      filterFn: {
-        type: Function,
-        value: function() {
-          return function(data, input) {
-            if (input === '') {
-              return data;
-            }
+    // Initialize data binding of the webcomponent when it is ready
+    // Data binding is implemented using KnockOut.js
+    ready: function() {
+      var polymer = this;
+      function ViewModel() {
+        // All available data that can be displayed
+        this.data = ko.observableArray(null);
 
-            var r = RegExp(input, 'i');
+        // Bind search bar input to an observable
+        this.textInput = ko.observable("");
 
-            return data.filter(function(v) {
-              return (r.test(v.name) ? v : null);
+        // Bind displayed result to a computed observable, automatically updating
+        // whenever the database change or search bar input change
+        this.filteredItems = ko.computed(function() {
+          var filteredItems = this.data();
+          if (this.textInput() !== "") {
+            var regExp = RegExp(this.textInput(), "i");
+
+            filteredItems = this.data().filter(function(item) {
+              return (regExp.test(item.name) ? item : null);
             });
-          };
-        }
-      },
+          }
 
-      filteredItems: {
-        type: Array,
-        computed: 'getFiltered(data.*, value, filterFn)'
-      },
+          // Fire an event, notifying that displayed result list may have changed
+          polymer.fire("filter-marker", {bubbles: true, filteredItems: filteredItems});
 
-      value: String
+          return filteredItems;
+        }, this);
+      };
+
+      // Trigger whenever an item on the result list has been clicked on
+      ViewModel.prototype.eItemClick = function() {
+        // Fire an event, notifying that an item has been click on and passing along its id
+        polymer.fire("animate-marker", {bubbles: true, item: this.id});
+      };
+
+      // Initialize the view model
+      polymer.viewModel = new ViewModel();
+
+      // Bind the view model to the webcomponent
+      ko.applyBindings(polymer.viewModel, this.$.host);
     },
 
-    eItemClick: function(event) {      
-      var item = this.$.filteredItems.itemForElement(event.target).id;
-      this.fire("animate-marker", {bubbles: true, item: item});
-    },
-
-    getFiltered: function(data, value, filterFn) {
-      var filteredItems = filterFn.call(this, data.base, value);
-      this.fire("filter-marker", {bubbles: true, filteredItems: filteredItems});
-      return filteredItems;
-    },
-
+    // Add items to the current database
     setData: function(data) {
-      this.data = data;
+      for (var i = 0; i < data.length; i++) {
+        this.viewModel.data.push(data[i]);
+      }
     }
   });
 </script>
