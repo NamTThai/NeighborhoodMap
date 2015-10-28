@@ -20,10 +20,10 @@
     "paper-item": "PolymerElements/paper-item#~1.0.2",
     "paper-menu": "PolymerElements/paper-menu#~1.1.0",
     "paper-toolbar": "PolymerElements/paper-toolbar#~1.0.4",
-    "polymer": "~1.0.8",
     "paper-input": "PolymerElements/paper-input#~1.0.16",
     "paper-dialog": "PolymerElements/paper-dialog#~1.0.2",
     "iron-icons": "PolymerElements/iron-icons#~1.0.4",
-    "knockout": "~3.3.0"
+    "knockout": "~3.3.0",
+    "polymer": "~1.2.0"
   }
 }

@@ -46,7 +46,7 @@ document.addEventListener("WebComponentsReady", function() {
       infoDialog.open();
     })
     .fail(function(error) {
-      alert("Something is wrong. Please contact your administrator with the following error: " + error.responseJSON.data);
+      alert("Got an error from Yelp. It's likely that no API key was provided: " + error.responseJSON.data);
     });
   };
 

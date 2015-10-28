@@ -14,7 +14,7 @@ The application is run using Express framework for Node.js. Express.js will crea
 
 ### How to get a developer API key from Yelp
 
-Navigate to `https://www.yelp.com/developers/manage_api_keys` to get an API key from yelp. Afterwards, create a file named `yelp-oauth.json` in folder `data` with the following information:
+Navigate to `https://www.yelp.com/developers/manage_api_keys` to get an API key from yelp. Afterwards, open the file named `data\yelp-oauth.json` and provide the following information:
 
 ```
 {
