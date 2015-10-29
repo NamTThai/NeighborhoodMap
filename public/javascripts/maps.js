@@ -9,24 +9,6 @@
       zoom: 14
     });
 
-    // Create an OverlapView over the map object to retrieve marker location
-    window.overlayMap = new google.maps.OverlayView();
-    window.overlayMap.draw = function() {};
-    window.overlayMap.setMap(window.map);
-
-    // Retrieve the absolute position of the map div in relation to top left corner
-    var offsetValues = {
-      top: 0,
-      left: 0
-    };
-    var currentLayout = document.querySelector("#map");
-    while (currentLayout.offsetParent) {
-      offsetValues.top += currentLayout.offsetTop;
-      offsetValues.left += currentLayout.offsetLeft;
-      currentLayout = currentLayout.offsetParent;
-    }
-    window.overlayMap.offsetValues = offsetValues;
-
     // Send a request to the server to retrieve all preset locations and then
     // display them on the map and left hand list.
     $.get(window.appPath + "markers", function(data) {
@@ -39,6 +21,25 @@
       }
 
       setLocationList(locations);
+    });
+
+    // Initialize info dialog object
+    window.generateInfoDialogContent = function(header, phone, imgUrl, snippet, url) {
+      header = header ? header : "";
+      phone = phone ? phone : "";
+      imgUrl = imgUrl ? imgUrl : "";
+      snippet = snippet ? snippet : "";
+      url = url ? url : "";
+      return '<div id="infoDialog">' +
+        '<h4 id="infoHeader">' + header + '</h4>' +
+        '<p>' + phone + '</p>' +
+        '<img alt="Review stars" src="' + imgUrl + '">' +
+        '<p id="reviewSnippet"><a id="infoUrl" target="_blank" href="' + url + '">' + snippet + '</a></p>' +
+        '</div>';
+    };
+
+    window.infoDialog = new google.maps.InfoWindow({
+      content: null
     });
   });
 

@@ -23,31 +23,10 @@ document.addEventListener("WebComponentsReady", function() {
       marker.setAnimation(null);
     }, 1400);
 
-    // Get Yelp review of the selected location and display as a dialog
-    var locationYelpId = window.allMarkers[locationId].yelpId;
-    $.get(window.appPath + "yelp", {name: locationYelpId}, function(data) {
-      // Close dialog if already exists
-      var infoDialog = document.querySelector("#infoDialog");
-      if (infoDialog.opened) {
-        infoDialog.close();
-      }
-
-      // Change infoDialogVm observable data
-      window.infoDialogVm.name(data.name);
-      window.infoDialogVm.displayPhone(data.display_phone);
-      window.infoDialogVm.ratingImgUrl(data.rating_img_url);
-      window.infoDialogVm.url(data.url);
-      window.infoDialogVm.snippetText(data.snippet_text);
-
-      // Change the location of infoDialog and show it
-      var markerPosition = window.overlayMap.getProjection().fromLatLngToDivPixel(marker.getPosition());
-      infoDialog.style.top = (window.overlayMap.offsetValues.top + markerPosition.y) + "px";
-      infoDialog.style.left = (window.overlayMap.offsetValues.left + markerPosition.x) + "px";
-      infoDialog.open();
-    })
-    .fail(function(error) {
-      alert("Got an error from Yelp. It's likely that no API key was provided: " + error.responseJSON.data);
-    });
+    // Center map around marker's position
+    infoDialog.close();
+    window.map.panTo(marker.getPosition());
+    openInfoDialog(locationId);
   };
 
   // Set visibility of the markers based what items are visible in the left drawer panel
@@ -65,4 +44,21 @@ document.addEventListener("WebComponentsReady", function() {
       window.markers[filteredItems[i].id].setVisible(true);
     }
   };
+
+  // Get information from Yelp about the location and display it
+  function openInfoDialog(locationId) {
+    // Get Yelp review of the selected location and display as a dialog
+    var locationYelpId = allMarkers[locationId].yelpId;
+    $.get(appPath + "yelp", {name: locationYelpId}, function(data) {
+      var infoDialogContent = generateInfoDialogContent(data.name, data.display_phone,
+        data.rating_img_url, data.snippet_text, data.url);
+      infoDialog.setContent(infoDialogContent);
+
+      var marker = markers[locationId];
+      infoDialog.open(map, marker);
+    })
+    .fail(function(error) {
+      alert("Got an error from Yelp. It's likely that no API key was provided: " + error.responseJSON.data);
+    });
+  }
 });
