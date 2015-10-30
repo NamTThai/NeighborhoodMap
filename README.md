@@ -4,9 +4,9 @@ The project is not battery-included. Please get a developer API key from Yelp.
 
 ### How to run the application
 
-The application is run using Express framework for Node.js. Express.js will create a server allowing for browser caching and gzip compression.
+The application is run using Express framework for Node.js.
 
-1. Install Node.js `^0.12.7`
+1. Install Node.js `~0.12.7`. I haven't tested new versions of Node yet.
 1. The project uses gulp as the task runner and bower as front-end dependency manager. Install gulp and bower with npm: `npm install -g gulp` `npm install -g bower`
 1. Navigate to project's root and run `npm install` and then `bower install`
 1. Besides Google Maps API, the project also uses Yelp API. Please get a developer API key (instruction in the corresponding section)
